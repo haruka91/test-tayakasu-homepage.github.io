@@ -1,0 +1,12 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+apec-sss2016.org	TRUE	/wp/wp-content/plugins	FALSE	1999999999	wordpress_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/wp/wp-content/plugins	FALSE	1999999999	wordpress_sec_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/wp/	FALSE	1999999999	wordpress_test_cookie	WP+Cookie+check
+apec-sss2016.org	TRUE	/wp/	FALSE	1999999999	wordpress_logged_in_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/wp/	FALSE	1999999999	wordpress_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/wp/	FALSE	1999999999	wordpress_sec_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/wp/	FALSE	1999999999	wordpressuser_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/wp/	FALSE	1999999999	wordpresspass_1bab9ca50419ca8a9fc32997153797fd	+
+apec-sss2016.org	TRUE	/	FALSE	1999999999	PHPSESSID	4fbde8e215509bc7c5cd3773ec9941b0
+
