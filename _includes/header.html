@@ -26,6 +26,9 @@
             </ul>
           </li>
           <li class="nav-item"><a class="nav-link" href="#">業績</a></li>
+          <li class="nav-item">
+            <a class="nav-link{% if page.nav == 'books' %} active{% endif %}"{% if page.nav == 'books' %} aria-current="page"{% endif %} href="{{ '/books.html' | relative_url }}">著書</a>
+          </li>
           <li class="nav-item"><a class="nav-link" href="#">アクセス</a></li>
           <li class="nav-item ms-lg-3"><a class="nav-link contact-link" href="#">お問い合わせ</a></li>
         </ul>
