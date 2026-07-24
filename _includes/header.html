@@ -11,8 +11,12 @@
             <a class="nav-link{% if page.nav == 'home' %} active{% endif %}"{% if page.nav == 'home' %} aria-current="page"{% endif %} href="{{ '/' | relative_url }}">トップ</a>
           </li>
           <li class="nav-item"><a class="nav-link" href="#">研究室紹介</a></li>
-          <li class="nav-item">
-            <a class="nav-link{% if page.nav == 'members' %} active{% endif %}"{% if page.nav == 'members' %} aria-current="page"{% endif %} href="{{ '/misako.html' | relative_url }}">メンバー</a>
+          <li class="nav-item dropdown hover-dropdown">
+            <a class="nav-link dropdown-toggle{% if page.nav == 'members' %} active{% endif %}"{% if page.nav == 'members' %} aria-current="page"{% endif %} href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">メンバー</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{{ '/misako.html' | relative_url }}">高安 美佐子</a></li>
+              <li><a class="dropdown-item" href="{{ '/hideki.html' | relative_url }}">高安 秀樹</a></li>
+            </ul>
           </li>
           <li class="nav-item dropdown hover-dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">研究内容</a>
