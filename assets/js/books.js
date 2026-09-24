@@ -1,5 +1,8 @@
 const booksGrid = document.querySelector("#booksGrid");
 const booksShelf = document.querySelector("#booksShelf");
+const booksFilters = document.querySelector("#booksFilters");
+const booksCount = document.querySelector("#booksCount");
+const filterLabels = { all: "すべて", misako: "高安 美佐子", hideki: "高安 秀樹" };
 
 function parseCsv(text) {
   const rows = [];
@@ -41,6 +44,7 @@ function parseCsv(text) {
     rows.push(row);
   }
 
+  if (!rows.length) return [];
   const headers = rows.shift().map((header) => header.trim());
   return rows.map((cells) => headers.reduce((entry, header, index) => {
     entry[header] = (cells[index] || "").trim();
@@ -67,6 +71,10 @@ function renderShelf(books) {
 }
 
 function renderBooks(books) {
+  if (!books.length) {
+    booksGrid.innerHTML = '<p class="books-loading">該当する著書はありません。</p>';
+    return;
+  }
   booksGrid.innerHTML = books.map((book) => {
     const amazonLink = book.amazon_url
       ? `<a class="amazon-link" href="${escapeHtml(book.amazon_url)}" target="_blank" rel="noopener" aria-label="${escapeHtml(book.title)}をAmazonで見る">
@@ -75,16 +83,16 @@ function renderBooks(books) {
       : "";
 
     return `
-      <article class="book-card">
+      <article class="book-card" data-book-id="${escapeHtml(book.id)}">
         <div class="book-cover-area">
-          <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)} 表紙" class="book-cover">
+          <img src="${escapeHtml(book.image)}" alt="${escapeHtml(book.title)}${book.edition_year ? `（${escapeHtml(book.edition_year)}年新装版）` : ""} 表紙" class="book-cover" loading="lazy" decoding="async">
           <span class="book-year">${escapeHtml(book.year)}</span>
         </div>
         <div class="book-card-body">
           <h2>${escapeHtml(book.title)}</h2>
           <p class="book-authors">${escapeHtml(book.authors)}</p>
           <p class="book-meta">${escapeHtml(book.publisher)}<br>${escapeHtml(book.published)}</p>
-          <p class="book-note">${escapeHtml(book.note)}</p>
+          ${book.note ? `<p class="book-note">${escapeHtml(book.note)}</p>` : ""}
         </div>
         <div class="book-card-footer">
           ${amazonLink}
@@ -92,6 +100,18 @@ function renderBooks(books) {
       </article>
     `;
   }).join("");
+}
+
+function applyFilter(books, author) {
+  const filtered = author === "all"
+    ? books
+    : books.filter((book) => (book.people || "").split(";").includes(author));
+  renderShelf(filtered);
+  renderBooks(filtered);
+  booksFilters.querySelectorAll("button[data-author]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(button.dataset.author === author));
+  });
+  booksCount.textContent = `${filterLabels[author]}：${filtered.length}件`;
 }
 
 fetch("data/csv/book.csv")
@@ -102,10 +122,18 @@ fetch("data/csv/book.csv")
     return response.text();
   })
   .then((text) => {
-    const books = parseCsv(text).filter((book) => book.title && book.image);
-    renderShelf(books);
-    renderBooks(books);
+    const books = parseCsv(text)
+      .filter((book) => book.title && book.image)
+      .sort((a, b) => Number(b.year) - Number(a.year));
+    applyFilter(books, "all");
+    booksGrid.setAttribute("aria-busy", "false");
+    booksFilters.querySelectorAll("button[data-author]").forEach((button) => {
+      button.disabled = false;
+      button.addEventListener("click", () => applyFilter(books, button.dataset.author));
+    });
   })
   .catch(() => {
-    booksGrid.innerHTML = '<p class="books-loading">data/csv/book.csv を読み込めませんでした。</p>';
+    booksGrid.setAttribute("aria-busy", "false");
+    booksGrid.innerHTML = '<p class="books-loading">著書一覧を読み込めませんでした。時間をおいて再読み込みしてください。</p>';
+    booksCount.textContent = "著書一覧を読み込めませんでした。";
   });

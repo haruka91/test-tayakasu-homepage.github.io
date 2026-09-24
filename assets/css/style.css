@@ -667,6 +667,65 @@ body {
   gap: 22px;
 }
 
+.books-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.books-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.books-filter {
+  min-height: 44px;
+  padding: 10px 20px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.94rem;
+  font-weight: 700;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.books-filter:hover:not(:disabled) {
+  color: var(--blue);
+  border-color: var(--blue);
+}
+
+.books-filter[aria-pressed="true"] {
+  color: var(--white);
+  background: var(--blue);
+  border-color: var(--blue);
+}
+
+.books-filter[aria-pressed="true"]:hover:not(:disabled) {
+  color: var(--white);
+}
+
+.books-filter:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.books-filter:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.books-count {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 .books-loading {
   grid-column: 1 / -1;
   margin: 0;
@@ -679,7 +738,7 @@ body {
 
 .book-card {
   display: grid;
-  grid-template-rows: 238px 1fr 48px;
+  grid-template-rows: 238px 1fr auto;
   min-height: 560px;
   overflow: hidden;
   background: var(--white);
@@ -724,50 +783,39 @@ body {
 }
 
 .book-card-body {
-  display: grid;
-  grid-template-rows: 4.7rem 4.3rem 3.6rem 2.8rem;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
   min-height: 0;
-  padding: 18px 18px 0;
+  padding: 18px;
 }
 
 .book-card h2 {
-  display: -webkit-box;
   margin: 0;
-  overflow: hidden;
   font-size: 1.02rem;
   font-weight: 800;
   line-height: 1.55;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  overflow-wrap: anywhere;
 }
 
 .book-authors,
 .book-meta,
 .book-note {
-  display: -webkit-box;
   margin: 0;
-  overflow: hidden;
   color: var(--muted);
   font-size: 0.88rem;
   line-height: 1.55;
-  -webkit-box-orient: vertical;
+  overflow-wrap: anywhere;
 }
 
 .book-authors {
   color: var(--ink);
   font-weight: 700;
-  -webkit-line-clamp: 3;
-}
-
-.book-meta {
-  -webkit-line-clamp: 2;
 }
 
 .book-note {
   color: #49647f;
   font-size: 0.82rem;
-  -webkit-line-clamp: 2;
 }
 
 .book-card-footer {
@@ -1054,8 +1102,13 @@ body {
   }
 
   .book-card {
-    grid-template-rows: 226px 1fr 48px;
+    grid-template-rows: 226px 1fr auto;
     min-height: 530px;
+  }
+
+  .books-filter {
+    padding: 10px 12px;
+    font-size: 0.86rem;
   }
 
   .access-info-row {
