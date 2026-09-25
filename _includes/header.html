@@ -25,7 +25,7 @@
               <li><a class="dropdown-item" href="#">選択肢 B</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="nav-link" href="#">業績</a></li>
+          <li class="nav-item"><a class="nav-link{% if page.nav == 'results' %} active{% endif %}"{% if page.nav == 'results' %} aria-current="page"{% endif %} href="{{ '/result.html' | relative_url }}">業績</a></li>
           <li class="nav-item">
             <a class="nav-link{% if page.nav == 'books' %} active{% endif %}"{% if page.nav == 'books' %} aria-current="page"{% endif %} href="{{ '/books.html' | relative_url }}">著書</a>
           </li>
