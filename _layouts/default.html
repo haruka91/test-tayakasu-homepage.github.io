@@ -9,6 +9,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;800&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}">
+    {% if page.styles %}
+      {% for style in page.styles %}
+        <link rel="stylesheet" href="{{ style | relative_url }}">
+      {% endfor %}
+    {% endif %}
   </head>
   <body>
     {% include header.html %}
