@@ -174,6 +174,18 @@ function initResults() {
   let selectedAuthor = "all";
   let request = 0;
 
+  function authorFromUrl() {
+    const author = new URLSearchParams(window.location.search).get("author");
+    return ["misako", "hideki"].includes(author) ? author : "all";
+  }
+
+  function updateAuthorInUrl(author) {
+    const url = new URL(window.location.href);
+    if (author === "all") url.searchParams.delete("author");
+    else url.searchParams.set("author", author);
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
+  }
+
   function setType(type) {
     selectedType = type;
     types.querySelectorAll("button").forEach(button => button.setAttribute("aria-pressed", String(button.dataset.type === type)));
@@ -215,7 +227,7 @@ function initResults() {
     panel.setAttribute("aria-labelledby", `tab-${category}`);
     form.reset();
     setType("all");
-    setAuthor("all");
+    setAuthor(category === "publications" ? authorFromUrl() : "all");
     year.innerHTML = '<option value="all">すべての年</option>';
     search.placeholder = config.placeholder;
     document.querySelector("#resultsFilterOptions").hidden = category !== "publications";
@@ -298,12 +310,17 @@ function initResults() {
     search.value = "";
     setType("all");
     setAuthor("all");
+    if (event.isTrusted) updateAuthorInUrl("all");
     render();
   });
   year.addEventListener("change", render);
   search.addEventListener("input", render);
   types.querySelectorAll("button").forEach(button => button.addEventListener("click", () => { setType(button.dataset.type); render(); }));
-  authors.querySelectorAll("button").forEach(button => button.addEventListener("click", () => { setAuthor(button.dataset.author); render(); }));
+  authors.querySelectorAll("button").forEach(button => button.addEventListener("click", () => {
+    setAuthor(button.dataset.author);
+    updateAuthorInUrl(button.dataset.author);
+    render();
+  }));
   document.querySelector("#resultsTop").addEventListener("click", () => document.querySelector("#pageTop").scrollIntoView());
   load(categoryFromHash());
 }

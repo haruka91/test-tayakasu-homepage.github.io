@@ -900,6 +900,10 @@ body {
   list-style: none;
 }
 
+.profile-name-en + .profile-contact-list {
+  margin-top: 1.4rem;
+}
+
 .profile-contact-list li {
   color: var(--ink);
   line-height: 1.7;
