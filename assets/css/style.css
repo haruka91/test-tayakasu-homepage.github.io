@@ -1066,6 +1066,30 @@ body {
   line-height: 1.75;
 }
 
+.profile-history-details {
+  margin-top: 12px;
+}
+
+.profile-history-details summary {
+  width: fit-content;
+  color: var(--blue);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.profile-history-details[open] summary {
+  margin-bottom: 12px;
+}
+
+.profile-history-details .details-close-label,
+.profile-history-details[open] .details-open-label {
+  display: none;
+}
+
+.profile-history-details[open] .details-close-label {
+  display: inline;
+}
+
 .external-links {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
